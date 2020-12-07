@@ -1,0 +1,23 @@
+<div class="table-column table-column-type-{{obj.datatype}}" attr.primary-key="{{obj.primaryKey}}" attr.data-port-id="{{obj.id}}">
+
+  <div class="table-column-delete" (click)="remove()">
+    <i class="fa fa-times table-column-delete-icon"></i>
+  </div>
+
+  <div><span>{{obj.name}}</span></div>
+
+  <div class="table-column-edit" (click)="editName()">
+    <i class="fa fa-pencil table-column-edit-icon"></i>
+  </div>
+
+  <!--
+      configure the li as an edge source, with a type of column, a scope derived from
+      the columns datatype, and a filter that prevents dragging new edges from the delete button or from the label.
+  -->
+  <jtk-source attr.port-id="{{obj.id}}" attr.scope="{{obj.datatype}}" filter=".table-column-delete, .table-column-delete-icon, span, .table-column-edit, .table-column-edit-icon" filter-exclude="true"></jtk-source>
+  <!--
+      configure the li as an edge target, with a type of column, and a scope derived from the
+      column's datatype.
+  -->
+  <jtk-target attr.port-id="{{obj.id}}" attr.scope="{{obj.datatype}}"></jtk-target>
+</div>

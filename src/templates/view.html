@@ -1,0 +1,17 @@
+<div class="view node">
+  <div class="name">
+    <div class="view-delete" title="Click to delete" (click)="remove()">
+      <i class="fa fa-times"></i>
+    </div>
+    <span>{{obj.name}}</span>
+    <div class="buttons">
+      <div class="edit-name" title="Click to edit view name" (click)="editName()">
+        <i class="fa fa-pencil"></i>
+      </div>
+    </div>
+  </div>
+  <div class="view-edit" title="Click to edit view query" (click)="editQuery()">
+    <i class="fa fa-pencil"></i>
+  </div>
+  <div class="view-details">{{obj.query}}</div>
+</div>

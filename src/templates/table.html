@@ -1,0 +1,13 @@
+<div class="table node">
+  <div class="name">
+    <div class="delete" title="Click to delete" (click)="remove()"></div>
+    <span>{{ obj.name }}</span>
+    <div class="buttons">
+      <div class="edit-name node-edit" title="Click to edit table name" (click)="editName()"></div>
+      <div class="new-column add" title="Click to add a new column" (click)="addColumn()"></div>
+    </div>
+  </div>
+  <div class="table-columns">
+    <db-column *ngFor="let column of obj.columns" [obj]="column" [parent]="this"></db-column>
+  </div>
+</div>
