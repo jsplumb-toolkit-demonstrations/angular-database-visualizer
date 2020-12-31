@@ -24,7 +24,6 @@ import {ControlsComponent} from './controls';
           This sample application is a copy of the Database Visualizer application, using the Toolkit's
           Angular integration components and Angular CLI.
         </p>
-        <button (click)="setTarget()">Set Target</button>
         <ul>
 
         </ul>
@@ -189,12 +188,6 @@ export class DatabaseVisualizerComponent {
     console.log("database visualizer being destroyed");
   }
 
-  setTarget() {
-    const p = this.toolkit.getNodes()[0].getPorts()[0]
-    const e = this.toolkit.getAllEdges()[0]
-
-    this.toolkit.setTarget(e, p)
-  }
 
 
 }
