@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "../node_modules/jsplumbtoolkit-syntax-highlighter/dist/css/jsplumbtoolkit-syntax-highlighter.css";
+@import "../node_modules/@jsplumb/json-syntax-highlighter/jsplumbtoolkit-syntax-highlighter.css";
 @import "../node_modules/jsplumbtoolkit/dist/css/jsplumbtoolkit.css";
-@import "../node_modules/jsplumbtoolkit-demo-support/dist/css/jsplumbtoolkit-demo-support.css";
+@import "../node_modules/@jsplumb/toolkit-demo-support/jsplumbtoolkit-demo-support.css";
 
 /* import the styles from the non-angular database visualizer demo*/
 @import "database-visualizer.css";
