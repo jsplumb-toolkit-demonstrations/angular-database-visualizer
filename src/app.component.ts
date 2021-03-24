@@ -2,8 +2,12 @@ import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 
 import {DatabaseVisualizerComponent } from "./database-visualizer";
 import {DatasetComponent } from "./dataset";
-import { Dialogs, jsPlumbToolkit, jsPlumbUtil } from "jsplumbtoolkit";
-import { jsPlumbService } from "jsplumbtoolkit-angular";
+
+import { jsPlumbService } from "@jsplumbtoolkit/angular";
+import {BrowserUI} from "@jsplumbtoolkit/browser-ui"
+import {uuid, Vertex, isPort} from "@jsplumbtoolkit/core"
+
+import {DatabaseVisualizerService} from "./database.visualizer.service"
 
 @Component({
     selector: 'jsplumb-demo',
@@ -22,9 +26,9 @@ export class AppComponent {
 
   toolkitId:string;
 
-  toolkit:jsPlumbToolkit;
+  toolkit:BrowserUI;
 
-  constructor(private $jsplumb:jsPlumbService, private elementRef:ElementRef) {
+  constructor(private $jsplumb:jsPlumbService, private elementRef:ElementRef, private databaseVisualizerService:DatabaseVisualizerService) {
     this.toolkitId = this.elementRef.nativeElement.getAttribute("toolkitId");
   }
 
@@ -36,10 +40,10 @@ export class AppComponent {
     this.toolkit.load({ url:"data/schema-1.json" });
   }
 
-  toolkitParams = {
+  toolkitParams:any = {
     nodeFactory:  (type:string, data:any, callback:(o:any)=>any) => {
       data.columns = [];
-      Dialogs.show({
+      this.databaseVisualizerService.showDialog({
         id: "dlgName",
         title: "Enter " + type + " name:",
         onOK:  (d:any) => {
@@ -47,11 +51,11 @@ export class AppComponent {
           // if the user entered a name...
           if (data.name) {
             if (data.name.length >= 2) {
-              data.id = jsPlumbUtil.uuid();
-              callback(data);
+              data.id = uuid()
+              callback(data)
             }
             else
-              alert(type + " names must be at least 2 characters!");
+              alert(type + " names must be at least 2 characters!")
           }
           // else...do not proceed.
         }
@@ -64,8 +68,8 @@ export class AppComponent {
     //
     // Prevent connections from a column to itself or to another column on the same table.
     //
-    beforeConnect:(source:any, target:any) => {
-      return source !== target && source.getNode() !== target.getNode();
+    beforeConnect:(source:Vertex, target:Vertex) => {
+      return source !== target && isPort(source) && isPort(target) && source.getParent() !== target.getParent()
     }
   }
 

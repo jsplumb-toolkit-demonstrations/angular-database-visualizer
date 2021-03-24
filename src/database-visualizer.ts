@@ -1,10 +1,12 @@
-import {jsPlumbSurfaceComponent} from "jsplumbtoolkit-angular";
-import {Surface, jsPlumbToolkit, Edge, Dialogs} from "jsplumbtoolkit";
+import {jsPlumbSurfaceComponent} from "@jsplumbtoolkit/angular";
+import {Surface, BrowserUI} from "@jsplumbtoolkit/browser-ui";
+import { Edge } from "@jsplumbtoolkit/core"
 import {Component, ViewChild} from "@angular/core";
 import {TableNodeComponent} from "./table-node-component";
 import {ViewNodeComponent} from "./view-node-component";
 import {ColumnComponent} from "./column-component";
 import {ControlsComponent} from './controls';
+import {DatabaseVisualizerService} from "./database.visualizer.service"
 
 
 @Component({
@@ -34,7 +36,7 @@ import {ControlsComponent} from './controls';
 export class DatabaseVisualizerComponent {
   @ViewChild(jsPlumbSurfaceComponent) surfaceComponent:jsPlumbSurfaceComponent;
 
-  toolkit:jsPlumbToolkit;
+  toolkit:BrowserUI;
   surface:Surface;
 
   toolkitId:string;
@@ -45,7 +47,7 @@ export class DatabaseVisualizerComponent {
     { label: "View", type: "view"}
   ];
 
-  constructor() {
+  constructor(private service:DatabaseVisualizerService) {
     this.toolkitId = "dbvis";
     this.surfaceId = "dbvisSurface";
   }
@@ -74,37 +76,40 @@ export class DatabaseVisualizerComponent {
           }
         },
         overlays: [
-          [ "Label", {
-            cssClass: "delete-relationship",
-            label: "<i class='fa fa-times'></i>",
-            events: {
-              "tap":  (params:any) => {
-                this.toolkit.removeEdge(params.edge);
+          {
+            type: "Label",
+            options: {
+              cssClass: "delete-relationship",
+              label: "<i class='fa fa-times'></i>",
+              events: {
+                "tap": (params: any) => {
+                  this.toolkit.removeEdge(params.edge);
+                }
               }
             }
-          } ]
+          }
         ]
       },
       // each edge type has its own overlays.
       "1:1": {
         parent: "common",
         overlays: [
-          ["Label", { label: "1", location: 0.1 }],
-          ["Label", { label: "1", location: 0.9 }]
+          { type:"Label", options:{ label: "1", location: 0.1 }},
+          { type:"Label", options:{ label: "1", location: 0.9 }}
         ]
       },
       "1:N": {
         parent: "common",
         overlays: [
-          ["Label", { label: "1", location: 0.1 }],
-          ["Label", { label: "N", location: 0.9 }]
+          { type:"Label", options:{ label: "1", location: 0.1 }},
+          { type:"Label", options:{ label: "N", location: 0.9 }}
         ]
       },
       "N:M": {
         parent: "common",
         overlays: [
-          ["Label", { label: "N", location: 0.1 }],
-          ["Label", { label: "M", location: 0.9 }]
+          { type:"Label", options:{ label: "N", location: 0.1 }},
+          { type:"Label", options:{ label: "M", location: 0.9 }}
         ]
       }
     },
@@ -121,10 +126,7 @@ export class DatabaseVisualizerComponent {
         paintStyle: { fill: "#f76258" },		// the endpoint's appearance
         hoverPaintStyle: { fill: "#434343" }, // appearance when mouse hovering on endpoint or connection
         edgeType: "common", // the type of edge for connections from this port type
-        maxConnections: -1, // no limit on connections
-        dropOptions: {  //drop options for the port. here we attach a css class.
-          hoverClass: "drop-hover"
-        }
+        maxConnections: -1 // no limit on connections
       }
     }
   };
@@ -136,14 +138,9 @@ export class DatabaseVisualizerComponent {
         padding: [150, 150]
       }
     },
-    // Register for certain events from the renderer. Here we have subscribed to the 'nodeRendered' event,
-    // which is fired each time a new node is rendered.  We attach listeners to the 'new column' button
-    // in each table node.  'data' has 'node' and 'el' as properties: node is the underlying node data,
-    // and el is the DOM element. We also attach listeners to all of the columns.
-    // At this point we can use our underlying library to attach event listeners etc.
     events: {
-      // This is called by the Toolkit when a new Port is added to a Node.
-      edgeAdded: (params:any) => {
+      // This is called by the Toolkit when a new edge is added
+      "edge:add": (params:any) => {
         // Check here that the edge was not added programmatically, ie. on load.
         if (params.addedByMouse) {
           this._editEdge(params.edge, true);
@@ -155,20 +152,22 @@ export class DatabaseVisualizerComponent {
     },
     consumeRightClick: false,
     zoomToFit:true
-  };
+  }
 
   private _editEdge(edge:Edge, isNew?:boolean):void {
-    Dialogs.show({
+    this.service.showDialog({
       id: "dlgRelationshipType",
       data: edge.data,
-      onOK: (data:any) => {
+      onOK: (data:Record<string, any>) => {
         // update the type in the edge's data model...it will be re-rendered.
         // `type` is set in the radio buttons in the dialog template.
         this.toolkit.updateEdge(edge, data);
       },
       onCancel: () => {
         // if the user pressed cancel on a new edge, delete the edge.
-        if (isNew) this.toolkit.removeEdge(edge);
+        if (isNew) {
+          this.toolkit.removeEdge(edge);
+        }
       }
     });
   }
@@ -180,8 +179,8 @@ export class DatabaseVisualizerComponent {
   }
 
   ngAfterViewInit() {
-    this.surface = this.surfaceComponent.surface;
-    this.toolkit = this.surface.getToolkit();
+    this.surface = this.surfaceComponent.surface
+    this.toolkit = this.surface.toolkitInstance
   }
 
   ngOnDestroy() {

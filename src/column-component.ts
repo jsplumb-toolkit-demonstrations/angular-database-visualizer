@@ -1,6 +1,7 @@
-import {Dialogs} from "jsplumbtoolkit";
+
 import {Component, ElementRef} from "@angular/core";
-import {BasePortComponent} from "jsplumbtoolkit-angular";
+import {BasePortComponent} from "@jsplumbtoolkit/angular";
+import {DatabaseVisualizerService} from "./database.visualizer.service"
 
 @Component({
   selector:"db-column",
@@ -8,12 +9,12 @@ import {BasePortComponent} from "jsplumbtoolkit-angular";
 })
 export class ColumnComponent extends BasePortComponent {
 
-  constructor(el: ElementRef) {
+  constructor(el: ElementRef, private service:DatabaseVisualizerService) {
     super(el);
   }
 
   remove():void {
-    Dialogs.show({
+    this.service.showDialog({
       id: "dlgConfirm",
       data: {
         msg: "Delete column '" + this.getPort().data.name + "'"
@@ -25,7 +26,7 @@ export class ColumnComponent extends BasePortComponent {
   }
 
   editName():void {
-    Dialogs.show({
+    this.service.showDialog({
       id: "dlgColumnEdit",
       title: "Column Details",
       data: this.getPort().data,
@@ -34,7 +35,7 @@ export class ColumnComponent extends BasePortComponent {
         // id and name of the new column.  This will result in a callback to the portFactory defined above.
         if (data.name) {
           if (data.name.length < 2)
-            Dialogs.show({id: "dlgMessage", msg: "Column names must be at least 2 characters!"});
+            this.service.showDialog({id: "dlgMessage", msg: "Column names must be at least 2 characters!"});
           else
             this.updatePort({
               name: data.name.replace(" ", "_").toLowerCase(),

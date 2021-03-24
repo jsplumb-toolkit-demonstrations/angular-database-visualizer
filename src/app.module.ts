@@ -1,11 +1,11 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent }  from './app.component';
-import { jsPlumbToolkitModule } from "jsplumbtoolkit-angular";
-import { Dialogs } from "jsplumbtoolkit";
+import { jsPlumbToolkitModule } from "@jsplumbtoolkit/angular";
+
 import { ROUTING } from './app.routing';
 
-import { jsPlumbToolkitDragDropModule } from "jsplumbtoolkit-angular-drop";
+import { jsPlumbToolkitDragDropModule } from "@jsplumbtoolkit/angular-drop";
 
 import { DatabaseVisualizerComponent } from './database-visualizer';
 import {TableNodeComponent} from "./table-node-component";
@@ -24,9 +24,9 @@ import {DatasetComponent } from "./dataset";
 export class AppModule {
     constructor() {
         // initialize dialogs
-        Dialogs.initialize({
-            selector: ".dlg"
-        });
+        // Dialogs.initialize({
+        //     selector: ".dlg"
+        // });
     }
 }
 

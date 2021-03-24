@@ -1,6 +1,6 @@
 {
-  "name": "jsplumb-toolkit-angular",
-  "version": "1.6.17",
+  "name": "jsplumb-toolkit-angular-database-visualizer",
+  "version": "4.0.0",
   "license": "Commercial",
   "scripts": {
     "ng": "ng",
@@ -25,6 +25,7 @@
     "@jsplumbtoolkit/angular-drop": "file:./jsplumbtoolkit-angular-drop.tgz",
     "@jsplumbtoolkit/drop": "file:./jsplumbtoolkit-drop.tgz",
     "@jsplumbtoolkit/undo-redo": "file:./jsplumbtoolkit-undo-redo.tgz",
+    "@jsplumbtoolkit/dialogs": "file:./jsplumbtoolkit-dialogs.tgz",
     "@jsplumb/json-syntax-highlighter": "^1.0.2",
     "@jsplumb/toolkit-demo-support": "^1.0.0",
     "core-js": "^2.4.1",
