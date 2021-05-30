@@ -853,7 +853,7 @@ export class ColumnComponent extends BasePortComponent {
 Most importantly here, note that it extends `BasePortComponent`. This is a requirement of the Toolkit.
 
 ```xml
-<li class="table-column table-column-type-{{obj.datatype}}" attr.primary-key="{{obj.primaryKey}}" attr.data-port-id="{{obj.id}}">
+<li class="table-column table-column-type-{{obj.datatype}}" attr.primary-key="{{obj.primaryKey}}" attr.data-jtk-port-id="{{obj.id}}">
   <div class="table-column-edit" (click)="editName()">
     <i class="fa fa-pencil table-column-edit-icon"></i>
   </div>
