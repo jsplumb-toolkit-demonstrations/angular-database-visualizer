@@ -1,6 +1,6 @@
 import { Input, Component, ElementRef } from '@angular/core';
 
-import {jsPlumbToolkitUndoRedoManager, createUndoRedoManager} from "@jsplumbtoolkit/undo-redo";
+import {UndoRedoManager, newInstance as createUndoRedoManager} from "@jsplumbtoolkit/undo-redo";
 import {Surface} from "@jsplumbtoolkit/browser-ui";
 import {jsPlumbService} from "@jsplumbtoolkit/angular";
 
@@ -25,8 +25,8 @@ export class ControlsComponent {
 
   @Input() surfaceId: string;
 
-  surface:Surface;
-  undoManager:jsPlumbToolkitUndoRedoManager;
+  surface:Surface
+  undoManager:UndoRedoManager
 
   constructor(private el: ElementRef, private $jsplumb:jsPlumbService) { }
 
@@ -68,7 +68,7 @@ export class ControlsComponent {
       this.undoManager = createUndoRedoManager({
         surface:this.surface,
         compound:true,
-        onChange:(mgr:jsPlumbToolkitUndoRedoManager, undoSize:number, redoSize:number) => {
+        onChange:(mgr:UndoRedoManager, undoSize:number, redoSize:number) => {
           let controls = this.getNativeElement(this.el);
           controls.setAttribute("can-undo", undoSize > 0);
           controls.setAttribute("can-redo", redoSize > 0);
