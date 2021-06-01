@@ -1,11 +1,12 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core'
 
-import {DatabaseVisualizerComponent } from "./database-visualizer";
-import {DatasetComponent } from "./dataset";
+import {DatabaseVisualizerComponent } from "./database-visualizer"
+import {DatasetComponent } from "./dataset"
 
-import { jsPlumbService } from "@jsplumbtoolkit/angular";
+import { jsPlumbService } from "@jsplumbtoolkit/angular"
 import {BrowserUI} from "@jsplumbtoolkit/browser-ui"
-import {uuid, Vertex, isPort} from "@jsplumbtoolkit/core"
+import {Vertex, isPort} from "@jsplumbtoolkit/core"
+import { uuid } from "@jsplumb/util"
 
 import {DatabaseVisualizerService} from "./database.visualizer.service"
 
