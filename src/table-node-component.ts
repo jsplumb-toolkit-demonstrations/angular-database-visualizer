@@ -1,7 +1,7 @@
 
-import {Component} from "@angular/core";
-import { uuid } from "@jsplumbtoolkit/core"
-import {BaseEditableNodeComponent} from "./base-editable-node";
+import {Component} from "@angular/core"
+import { uuid } from "@jsplumb/util"
+import {BaseEditableNodeComponent} from "./base-editable-node"
 import {DatabaseVisualizerService} from "./database.visualizer.service"
 
 @Component({ templateUrl:"templates/table.html" })
