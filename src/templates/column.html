@@ -1,4 +1,15 @@
-<div class="table-column table-column-type-{{obj.datatype}}" attr.primary-key="{{obj.primaryKey}}" attr.data-jtk-port-id="{{obj.id}}">
+<!--
+  Explanation of each attribute:
+
+  primary-key : used by this demonstration to apply styles via CSS to a table's primary key
+  data-jtk-port : the associated port id in the model for the column (which is the column's id)
+  data-jtk-source : informs the Toolkit that the element is a connection drag source
+  data-jtk-target: informs the Toolkit that the element is a connection drag target
+
+-->
+<div class="table-column table-column-type-{{obj.datatype}}"
+     attr.primary-key="{{obj.primaryKey}}" attr.data-jtk-port="{{obj.id}}"
+     data-jtk-source="true" attr.data-jtk-scope="{{obj.datatype}}" data-jtk-target="true">
 
   <div class="table-column-delete" (click)="remove()">
     <i class="fa fa-times table-column-delete-icon"></i>
@@ -10,14 +21,4 @@
     <i class="fa fa-pencil table-column-edit-icon"></i>
   </div>
 
-  <!--
-      configure the li as an edge source, with a type of column, a scope derived from
-      the columns datatype, and a filter that prevents dragging new edges from the delete button or from the label.
-  -->
-  <jtk-source attr.port-id="{{obj.id}}" attr.scope="{{obj.datatype}}" filter=".table-column-delete, .table-column-delete-icon, span, .table-column-edit, .table-column-edit-icon" filter-exclude="true"></jtk-source>
-  <!--
-      configure the li as an edge target, with a type of column, and a scope derived from the
-      column's datatype.
-  -->
-  <jtk-target attr.port-id="{{obj.id}}" attr.scope="{{obj.datatype}}"></jtk-target>
 </div>
