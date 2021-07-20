@@ -1,5 +1,5 @@
 
-import {BaseNodeComponent} from "@jsplumbtoolkit/angular"
+import {BaseNodeComponent} from "@jsplumbtoolkit/browser-ui-angular"
 
 import {DatabaseVisualizerService} from "./database.visualizer.service"
 

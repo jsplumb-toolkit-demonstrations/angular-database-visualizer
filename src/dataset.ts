@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input} from '@angular/core';
 import { JsPlumbToolkit } from "@jsplumbtoolkit/core";
-import {jsPlumbService } from "@jsplumbtoolkit/angular";
+import {jsPlumbService } from "@jsplumbtoolkit/browser-ui-angular";
 import * as SyntaxHighlighter from "@jsplumb/json-syntax-highlighter"
 
 @Component({

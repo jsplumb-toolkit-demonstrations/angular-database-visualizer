@@ -1,6 +1,6 @@
 
 import {Component, ElementRef} from "@angular/core";
-import {BasePortComponent} from "@jsplumbtoolkit/angular";
+import {BasePortComponent} from "@jsplumbtoolkit/browser-ui-angular";
 import {DatabaseVisualizerService} from "./database.visualizer.service"
 
 @Component({

@@ -1,13 +1,16 @@
-import {jsPlumbSurfaceComponent} from "@jsplumbtoolkit/angular";
-import { Surface, BrowserUI, EVENT_DBL_TAP, EVENT_TAP } from "@jsplumbtoolkit/browser-ui";
+import {jsPlumbSurfaceComponent, BrowserUIAngular} from "@jsplumbtoolkit/browser-ui-angular"
+import { Surface, EVENT_DBL_TAP, EVENT_TAP } from "@jsplumbtoolkit/browser-ui"
 import { Edge, EVENT_EDGE_ADDED } from "@jsplumbtoolkit/core"
-import {Component, ViewChild} from "@angular/core";
-import {TableNodeComponent} from "./table-node-component";
-import {ViewNodeComponent} from "./view-node-component";
-import {ColumnComponent} from "./column-component";
+import {Component, ViewChild} from "@angular/core"
+import {TableNodeComponent} from "./table-node-component"
+import {ViewNodeComponent} from "./view-node-component"
+import {ColumnComponent} from "./column-component"
 import {DatabaseVisualizerService} from "./database.visualizer.service"
 import { SpringLayout } from "@jsplumbtoolkit/layout-spring"
-import { AnchorLocations, LabelOverlay, DEFAULT } from "@jsplumb/core"
+
+import { LabelOverlay} from "@jsplumb/core"
+import { AnchorLocations, DEFAULT } from "@jsplumb/common"
+
 import { StateMachineConnector } from "@jsplumb/connector-bezier"
 
 const COMMON = "common"
@@ -16,6 +19,10 @@ const N_TO_M = "N:M"
 const ONE_TO_ONE = "1:1"
 const TABLE = "table"
 const VIEW = "view"
+
+const ONE = "1"
+const N = "N"
+const M = "M"
 
 @Component({
   selector:"database-visualizer",
@@ -44,7 +51,7 @@ const VIEW = "view"
 export class DatabaseVisualizerComponent {
   @ViewChild(jsPlumbSurfaceComponent) surfaceComponent:jsPlumbSurfaceComponent;
 
-  toolkit:BrowserUI;
+  toolkit:BrowserUIAngular;
   surface:Surface;
 
   toolkitId:string;
@@ -80,7 +87,7 @@ export class DatabaseVisualizerComponent {
         cssClass:"common-edge",
         events: {
           [EVENT_DBL_TAP]: (params) => {
-            this._editEdge(params.edge);
+            this._editEdge(params.edge)
           }
         },
         overlays: [
@@ -88,10 +95,10 @@ export class DatabaseVisualizerComponent {
             type: LabelOverlay.type,
             options: {
               cssClass: "delete-relationship",
-              label: "<i class='fa fa-times'></i>",
+              label: "x",
               events: {
                 [EVENT_TAP]: (params: any) => {
-                  this.toolkit.removeEdge(params.edge);
+                  this.toolkit.removeEdge(params.edge)
                 }
               }
             }
@@ -102,22 +109,22 @@ export class DatabaseVisualizerComponent {
       [ONE_TO_ONE]: {
         parent: COMMON,
         overlays: [
-          { type:LabelOverlay.type, options:{ label: "1", location: 0.1 }},
-          { type:LabelOverlay.type, options:{ label: "1", location: 0.9 }}
+          { type:LabelOverlay.type, options:{ label: ONE, location: 0.1 }},
+          { type:LabelOverlay.type, options:{ label: ONE, location: 0.9 }}
         ]
       },
       [ONE_TO_N]: {
         parent: COMMON,
         overlays: [
-          { type:LabelOverlay.type, options:{ label: "1", location: 0.1 }},
-          { type:LabelOverlay.type, options:{ label: "N", location: 0.9 }}
+          { type:LabelOverlay.type, options:{ label: ONE, location: 0.1 }},
+          { type:LabelOverlay.type, options:{ label: N, location: 0.9 }}
         ]
       },
       [N_TO_M]: {
         parent: COMMON,
         overlays: [
-          { type:LabelOverlay.type, options:{ label: "N", location: 0.1 }},
-          { type:LabelOverlay.type, options:{ label: "M", location: 0.9 }}
+          { type:LabelOverlay.type, options:{ label: N, location: 0.1 }},
+          { type:LabelOverlay.type, options:{ label: M, location: 0.9 }}
         ]
       }
     },
@@ -167,12 +174,12 @@ export class DatabaseVisualizerComponent {
       onOK: (data:Record<string, any>) => {
         // update the type in the edge's data model...it will be re-rendered.
         // `type` is set in the radio buttons in the dialog template.
-        this.toolkit.updateEdge(edge, data);
+        this.toolkit.updateEdge(edge, data)
       },
       onCancel: () => {
         // if the user pressed cancel on a new edge, delete the edge.
         if (isNew) {
-          this.toolkit.removeEdge(edge);
+          this.toolkit.removeEdge(edge)
         }
       }
     });

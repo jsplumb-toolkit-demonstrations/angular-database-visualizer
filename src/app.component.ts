@@ -3,10 +3,8 @@ import {Component, ElementRef, ViewChild} from '@angular/core'
 import {DatabaseVisualizerComponent } from "./database-visualizer"
 import {DatasetComponent } from "./dataset"
 
-import { jsPlumbService } from "@jsplumbtoolkit/angular"
-import {BrowserUI} from "@jsplumbtoolkit/browser-ui"
-import {Vertex, isPort} from "@jsplumbtoolkit/core"
-import { uuid } from "@jsplumb/util"
+import {BrowserUIAngular, jsPlumbService} from "@jsplumbtoolkit/browser-ui-angular"
+import {uuid,Vertex, isPort} from "@jsplumbtoolkit/core"
 
 import {DatabaseVisualizerService} from "./database.visualizer.service"
 
@@ -27,7 +25,7 @@ export class AppComponent {
 
   toolkitId:string;
 
-  toolkit:BrowserUI;
+  toolkit:BrowserUIAngular;
 
   constructor(private $jsplumb:jsPlumbService, private elementRef:ElementRef, private databaseVisualizerService:DatabaseVisualizerService) {
     this.toolkitId = this.elementRef.nativeElement.getAttribute("toolkitId");
@@ -61,6 +59,15 @@ export class AppComponent {
           // else...do not proceed.
         }
       });
+    },
+    edgeFactory:(type:string, data:any, continueCallback:Function, abortCallback:Function) => {
+      this.databaseVisualizerService.showDialog({
+        id:"dlgRelationshipType",
+        title:"Relationship",
+        onOk:continueCallback,
+        onCancel:abortCallback
+      })
+      return true
     },
     // the name of the property in each node's data that is the key for the data for the ports for that node.
     // we used to use portExtractor and portUpdater in this demo, prior to the existence of portDataProperty.
