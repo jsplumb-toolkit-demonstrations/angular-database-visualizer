@@ -25,8 +25,6 @@
     "@jsplumbtoolkit/dialogs": "^5.0.0-RC1",
     "@jsplumb/connector-bezier": "^5.0.0-RC1",
     "@jsplumbtoolkit/layout-spring": "^5.0.0-RC1",
-    "@jsplumb/json-syntax-highlighter": "^1.0.2",
-    "@jsplumb/toolkit-demo-support": "^1.0.0",
     "core-js": "^2.4.1",
     "rxjs": "^6.5.3",
     "rxjs-compat": "^6.0.0-rc.0",

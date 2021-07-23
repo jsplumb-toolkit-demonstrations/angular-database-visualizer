@@ -1,7 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core'
 
 import {DatabaseVisualizerComponent } from "./database-visualizer"
-import {DatasetComponent } from "./dataset"
 
 import {BrowserUIAngular, jsPlumbService} from "@jsplumbtoolkit/browser-ui-angular"
 import {uuid,Vertex, isPort} from "@jsplumbtoolkit/core"
@@ -9,26 +8,21 @@ import {uuid,Vertex, isPort} from "@jsplumbtoolkit/core"
 import {DatabaseVisualizerService} from "./database.visualizer.service"
 
 @Component({
-    selector: 'jsplumb-demo',
-    template:`
-        <nav>
-            <a routerLink="/home" style="cursor:pointer;" routerLinkActive="active">Visualizer</a>
-            <a routerLink="/data" style="cursor:pointer;" routerLinkActive="active">Dataset</a>
-        </nav>
-        <router-outlet></router-outlet>       
+    selector: 'app-demo',
+    template:`      
+      <app-database-visualizer></app-database-visualizer>       
     `
 })
 export class AppComponent {
 
   @ViewChild(DatabaseVisualizerComponent) visualizer:DatabaseVisualizerComponent;
-  @ViewChild(DatasetComponent) dataset:DatasetComponent;
 
   toolkitId:string;
 
   toolkit:BrowserUIAngular;
 
   constructor(private $jsplumb:jsPlumbService, private elementRef:ElementRef, private databaseVisualizerService:DatabaseVisualizerService) {
-    this.toolkitId = this.elementRef.nativeElement.getAttribute("toolkitId");
+    this.toolkitId = this.elementRef.nativeElement.getAttribute("toolkitId")
   }
 
   ngOnInit() {
@@ -36,7 +30,7 @@ export class AppComponent {
   }
 
   ngAfterViewInit() {
-    this.toolkit.load({ url:"data/schema-1.json" });
+    this.toolkit.load({ url:"data/schema-1.json" })
   }
 
   toolkitParams:any = {

@@ -25,7 +25,7 @@ const N = "N"
 const M = "M"
 
 @Component({
-  selector:"database-visualizer",
+  selector:"app-database-visualizer",
   template:`
     <div class="jtk-demo-canvas">
       <jsplumb-surface [surfaceId]="surfaceId" [toolkitId]="toolkitId" [view]="view" [renderParams]="renderParams"></jsplumb-surface>
