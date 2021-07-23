@@ -30,7 +30,7 @@ export class AppComponent {
   }
 
   ngAfterViewInit() {
-    this.toolkit.load({ url:"data/schema-1.json" })
+    this.toolkit.load({ url:"assets/schema-1.json" })
   }
 
   toolkitParams:any = {

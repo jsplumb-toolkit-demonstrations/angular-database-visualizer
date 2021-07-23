@@ -196,10 +196,6 @@ export class DatabaseVisualizerComponent {
     this.toolkit = this.surfaceComponent.toolkit
   }
 
-  ngOnDestroy() {
-    console.log("database visualizer being destroyed");
-  }
-
 
 
 }
