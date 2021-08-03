@@ -1,5 +1,5 @@
 import {jsPlumbSurfaceComponent, BrowserUIAngular} from "@jsplumbtoolkit/browser-ui-angular"
-import { Surface, EVENT_DBL_TAP, EVENT_TAP } from "@jsplumbtoolkit/browser-ui"
+import { Surface, EVENT_DBL_TAP, EVENT_TAP, AnchorLocations, DEFAULT, LabelOverlay } from "@jsplumbtoolkit/browser-ui"
 import { Edge, EVENT_EDGE_ADDED } from "@jsplumbtoolkit/core"
 import {Component, ViewChild} from "@angular/core"
 import {TableNodeComponent} from "./table-node-component"
@@ -7,9 +7,6 @@ import {ViewNodeComponent} from "./view-node-component"
 import {ColumnComponent} from "./column-component"
 import {DatabaseVisualizerService} from "./database.visualizer.service"
 import { SpringLayout } from "@jsplumbtoolkit/layout-spring"
-
-import { LabelOverlay} from "@jsplumb/core"
-import { AnchorLocations, DEFAULT } from "@jsplumb/common"
 
 import { StateMachineConnector } from "@jsplumb/connector-bezier"
 

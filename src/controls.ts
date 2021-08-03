@@ -5,10 +5,10 @@ import {
   EVENT_SURFACE_MODE_CHANGED,
   Surface,
   SurfaceMode,
+  FALSE, TRUE
 } from "@jsplumbtoolkit/browser-ui"
 import {jsPlumbService} from "@jsplumbtoolkit/browser-ui-angular"
 import {EVENT_UNDOREDO_UPDATE, UndoRedoUpdateParams} from '@jsplumbtoolkit/core'
-import { FALSE, TRUE } from "@jsplumb/common"
 
 // --------------------------------------- CONTROLS COMPONENT ------------------------------------------------------------------
 //
