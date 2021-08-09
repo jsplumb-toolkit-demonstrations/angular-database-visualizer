@@ -60,6 +60,8 @@
 .table-columns {
   display: flex;
   flex-direction: column;
+  overflow: auto;
+  position:relative;
 }
 
 .table-column {
@@ -108,7 +110,8 @@
 }
 
 .table-column-type-integer {
-  background-color: #cbe6de;
+  /*background-color: #cbe6de;*/
+  background-color:#a0c6bb;
 }
 
 .table-column-type-date {
@@ -116,7 +119,8 @@
 }
 
 .table-column[primary-key='true'] {
-  background-color:#83b8a8;
+  /*background-color:#83b8a8;*/
+  background-color: pink;
 }
 
 /* ----------------------------------------------------------------------------------------------------- */
@@ -230,4 +234,12 @@
 .pull-left { float: left; }
 .clearfix { clear: both; }
 
+
+.jtk-overlay {
+  z-index:10;
+}
+
+.jtk-connector{
+  z-index:9;
+}
 
