@@ -29,7 +29,7 @@ export class BaseEditableNodeComponent extends BaseNodeComponent {
     this.service.showDialog({
       id: "dlgConfirm",
       data: {
-        msg: "Delete '" + this.getNode().id
+        msg: "Delete '" + this.getNode().data.name
       },
       onOK: (data:any) => {
         this.removeNode();
