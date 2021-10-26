@@ -148,15 +148,6 @@ export class DatabaseVisualizerComponent {
       type: SpringLayout.type,
       padding: [150, 150]
     },
-    events: {
-      // This is called by the Toolkit when a new edge is added
-      [EVENT_EDGE_ADDED]: (params:any) => {
-        // Check here that the edge was not added programmatically, ie. on load.
-        if (params.addedByMouse) {
-          this._editEdge(params.edge, true);
-        }
-      }
-    },
     dragOptions: {
      // filter: "i, .view .buttons, .table .buttons, .table-column *, .view-edit, .edit-name, .delete, .add"
     },
