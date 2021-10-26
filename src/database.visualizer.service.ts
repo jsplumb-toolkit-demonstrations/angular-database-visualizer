@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Dialogs} from "@jsplumbtoolkit/dialogs"
+import {Dialogs, ShowOptions} from "@jsplumbtoolkit/dialogs"
 import {BrowserUIAngular, jsPlumbService} from "@jsplumbtoolkit/browser-ui-angular"
 
 @Injectable({
@@ -15,7 +15,7 @@ export class DatabaseVisualizerService {
     this.dialogs = new Dialogs({selector:".dlg"})
   }
 
-  showDialog(options:any) {
+  showDialog(options:ShowOptions) {
     this.dialogs.show(options)
   }
 
