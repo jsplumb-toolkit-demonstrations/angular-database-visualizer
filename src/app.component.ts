@@ -6,6 +6,7 @@ import {BrowserUIAngular, jsPlumbService} from "@jsplumbtoolkit/browser-ui-angul
 import {uuid,Vertex, isPort} from "@jsplumbtoolkit/core"
 
 import {DatabaseVisualizerService} from "./database.visualizer.service"
+import {CancelFunction, CommitFunction} from "@jsplumbtoolkit/dialogs"
 
 @Component({
     selector: 'app-demo',
@@ -54,11 +55,11 @@ export class AppComponent {
         }
       });
     },
-    edgeFactory:(type:string, data:any, continueCallback:Function, abortCallback:Function) => {
+    edgeFactory:(type:string, data:any, continueCallback:CommitFunction, abortCallback:CancelFunction) => {
       this.databaseVisualizerService.showDialog({
         id:"dlgRelationshipType",
         title:"Relationship",
-        onOk:continueCallback,
+        onOK:continueCallback,
         onCancel:abortCallback
       })
       return true
