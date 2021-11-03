@@ -1,14 +1,20 @@
-import { Input, Component, ElementRef } from '@angular/core';
+import {Component, ElementRef, Input} from '@angular/core'
 
-import {jsPlumbToolkitUndoRedo} from "jsplumbtoolkit-undo-redo";
-import {jsPlumb, Surface} from "jsplumbtoolkit";
-import {jsPlumbService} from "jsplumbtoolkit-angular";
+import {
+  EVENT_CANVAS_CLICK,
+  EVENT_SURFACE_MODE_CHANGED,
+  Surface,
+  SurfaceMode,
+  FALSE, TRUE
+} from "@jsplumbtoolkit/browser-ui"
+import {jsPlumbService} from "@jsplumbtoolkit/browser-ui-angular"
+import {EVENT_UNDOREDO_UPDATE, UndoRedoUpdateParams} from '@jsplumbtoolkit/core'
 
 // --------------------------------------- CONTROLS COMPONENT ------------------------------------------------------------------
 //
 // This component was written for the jsPlumb Toolkit demonstrations. It's production ready of course, but it assumes a couple of
 // other styles are available (via jsplumbtoolkit-demo-support.css), and it has
-// hardcoded labels in English. Plus it assumes that the undo manager is available.
+// hardcoded labels in English.
 
 
 @Component({
@@ -25,8 +31,7 @@ export class ControlsComponent {
 
   @Input() surfaceId: string;
 
-  surface:Surface;
-  undoManager:jsPlumbToolkitUndoRedo;
+  surface:Surface
 
   constructor(private el: ElementRef, private $jsplumb:jsPlumbService) { }
 
@@ -35,49 +40,45 @@ export class ControlsComponent {
   }
 
   panMode() {
-    this.surface.setMode("pan");
+    this.surface.setMode(SurfaceMode.PAN)
   }
 
   selectMode() {
-    this.surface.setMode("select");
+    this.surface.setMode(SurfaceMode.SELECT)
   }
 
   zoomToFit() {
-    this.surface.getToolkit().clearSelection();
-    this.surface.zoomToFit();
+    this.surface.toolkitInstance.clearSelection()
+    this.surface.zoomToFit()
   }
 
   undo() {
-    this.undoManager.undo();
+    this.surface.toolkitInstance.undo()
   }
 
   redo() {
-    this.undoManager.redo();
+    this.surface.toolkitInstance.redo()
   }
 
   ngAfterViewInit() {
     this.$jsplumb.getSurface(this.surfaceId, (s:Surface) => {
 
-      this.surface = s;
-      this.surface.bind("modeChanged", (mode:String) => {
+      this.surface = s
+      this.surface.bind(EVENT_SURFACE_MODE_CHANGED, (mode:String) => {
         let controls = this.getNativeElement(this.el);
-        jsPlumb.removeClass(controls.querySelectorAll("[mode]"), "selected-mode");
-        jsPlumb.addClass(controls.querySelectorAll("[mode='" + mode + "']"), "selected-mode");
-      });
+        this.surface.removeClass(controls.querySelectorAll("[mode]"), "selected-mode");
+        this.surface.addClass(controls.querySelectorAll("[mode='" + mode + "']"), "selected-mode");
+      })
 
-      this.undoManager = new jsPlumbToolkitUndoRedo({
-        surface:this.surface,
-        compound:true,
-        onChange:(mgr:jsPlumbToolkitUndoRedo, undoSize:number, redoSize:number) => {
-          let controls = this.getNativeElement(this.el);
-          controls.setAttribute("can-undo", undoSize > 0);
-          controls.setAttribute("can-redo", redoSize > 0);
-        }
-      });
+      this.surface.toolkitInstance.bind(EVENT_UNDOREDO_UPDATE, (state:UndoRedoUpdateParams) => {
+        let controls = this.getNativeElement(this.el);
+        controls.setAttribute("can-undo", state.undoCount > 0 ? TRUE : FALSE)
+        controls.setAttribute("can-redo", state.redoCount > 0 ? TRUE : FALSE)
+      })
 
-      this.surface.bind("canvasClick", () => this.surface.getToolkit().clearSelection());
+      this.surface.bind(EVENT_CANVAS_CLICK, () => this.surface.toolkitInstance.clearSelection())
 
-    });
+    })
   }
 }
 

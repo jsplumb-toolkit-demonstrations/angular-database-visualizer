@@ -1,31 +1,29 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core'
 
-import {DatabaseVisualizerComponent } from "./database-visualizer";
-import {DatasetComponent } from "./dataset";
-import { Dialogs, jsPlumbToolkit, jsPlumbUtil } from "jsplumbtoolkit";
-import { jsPlumbService } from "jsplumbtoolkit-angular";
+import {DatabaseVisualizerComponent } from "./database-visualizer"
+
+import {BrowserUIAngular, jsPlumbService} from "@jsplumbtoolkit/browser-ui-angular"
+import {uuid,Vertex, isPort} from "@jsplumbtoolkit/core"
+
+import {DatabaseVisualizerService} from "./database.visualizer.service"
+import {CancelFunction, CommitFunction} from "@jsplumbtoolkit/dialogs"
 
 @Component({
-    selector: 'jsplumb-demo',
-    template:`
-        <nav>
-            <a routerLink="/home" style="cursor:pointer;" routerLinkActive="active">Visualizer</a>
-            <a routerLink="/data" style="cursor:pointer;" routerLinkActive="active">Dataset</a>
-        </nav>
-        <router-outlet></router-outlet>       
+    selector: 'app-demo',
+    template:`      
+      <app-database-visualizer></app-database-visualizer>       
     `
 })
 export class AppComponent {
 
   @ViewChild(DatabaseVisualizerComponent) visualizer:DatabaseVisualizerComponent;
-  @ViewChild(DatasetComponent) dataset:DatasetComponent;
 
   toolkitId:string;
 
-  toolkit:jsPlumbToolkit;
+  toolkit:BrowserUIAngular;
 
-  constructor(private $jsplumb:jsPlumbService, private elementRef:ElementRef) {
-    this.toolkitId = this.elementRef.nativeElement.getAttribute("toolkitId");
+  constructor(private $jsplumb:jsPlumbService, private elementRef:ElementRef, private databaseVisualizerService:DatabaseVisualizerService) {
+    this.toolkitId = this.elementRef.nativeElement.getAttribute("toolkitId")
   }
 
   ngOnInit() {
@@ -33,13 +31,13 @@ export class AppComponent {
   }
 
   ngAfterViewInit() {
-    this.toolkit.load({ url:"data/schema-1.json" });
+    this.toolkit.load({ url:"assets/schema-1.json" })
   }
 
-  toolkitParams = {
+  toolkitParams:any = {
     nodeFactory:  (type:string, data:any, callback:(o:any)=>any) => {
       data.columns = [];
-      Dialogs.show({
+      this.databaseVisualizerService.showDialog({
         id: "dlgName",
         title: "Enter " + type + " name:",
         onOK:  (d:any) => {
@@ -47,15 +45,24 @@ export class AppComponent {
           // if the user entered a name...
           if (data.name) {
             if (data.name.length >= 2) {
-              data.id = jsPlumbUtil.uuid();
-              callback(data);
+              data.id = uuid()
+              callback(data)
             }
             else
-              alert(type + " names must be at least 2 characters!");
+              alert(type + " names must be at least 2 characters!")
           }
           // else...do not proceed.
         }
       });
+    },
+    edgeFactory:(type:string, data:any, continueCallback:CommitFunction, abortCallback:CancelFunction) => {
+      this.databaseVisualizerService.showDialog({
+        id:"dlgRelationshipType",
+        title:"Relationship",
+        onOK:continueCallback,
+        onCancel:abortCallback
+      })
+      return true
     },
     // the name of the property in each node's data that is the key for the data for the ports for that node.
     // we used to use portExtractor and portUpdater in this demo, prior to the existence of portDataProperty.
@@ -64,8 +71,8 @@ export class AppComponent {
     //
     // Prevent connections from a column to itself or to another column on the same table.
     //
-    beforeConnect:(source:any, target:any) => {
-      return source !== target && source.getNode() !== target.getNode();
+    beforeConnect:(source:Vertex, target:Vertex) => {
+      return source !== target && isPort(source) && isPort(target) && source.getParent() !== target.getParent()
     }
   }
 

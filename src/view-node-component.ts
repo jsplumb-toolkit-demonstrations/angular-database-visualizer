@@ -1,11 +1,17 @@
-import {Dialogs} from "jsplumbtoolkit";
+
 import {BaseEditableNodeComponent} from "./base-editable-node";
 import {Component} from "@angular/core";
+import {DatabaseVisualizerService} from "./database.visualizer.service"
 
 @Component({ templateUrl:"templates/view.html" })
 export class ViewNodeComponent extends BaseEditableNodeComponent {
+
+  constructor(protected service:DatabaseVisualizerService) {
+    super(service)
+  }
+
   editQuery():void {
-    Dialogs.show({
+    this.service.showDialog({
       id: "dlgViewQuery",
       data: this.getNode().data,
       onOK: (data:any) => {

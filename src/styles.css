@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "../node_modules/@jsplumb/json-syntax-highlighter/jsplumbtoolkit-syntax-highlighter.css";
-@import "../node_modules/jsplumbtoolkit/dist/css/jsplumbtoolkit.css";
-@import "../node_modules/@jsplumb/toolkit-demo-support/jsplumbtoolkit-demo-support.css";
+@import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css";
+@import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-demo-support.css";
+@import "../node_modules/@jsplumbtoolkit/dialogs/css/jsplumbtoolkit-dialogs.css";
 
 /* import the styles from the non-angular database visualizer demo*/
 @import "database-visualizer.css";
@@ -12,15 +12,15 @@
     height:500px;
 }
 
-jsplumb-demo {
-    width:100%;
-    height:100%;
-    display:flex;
-    flex-direction: column;
+app-demo {
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction: column;
   position:relative;
 }
 
-database-visualizer {
+app-database-visualizer {
   width:100%;
   display:flex;
   position: relative;
@@ -28,7 +28,7 @@ database-visualizer {
 }
 
 @media screen and (max-width:850px) {
-  database-visualizer {
+  app-database-visualizer {
     flex-direction: column;
   }
 }

@@ -1,9 +1,17 @@
-import {Dialogs} from "jsplumbtoolkit";
-import {BaseNodeComponent} from "jsplumbtoolkit-angular";
+
+import {BaseNodeComponent} from "@jsplumbtoolkit/browser-ui-angular"
+
+import {DatabaseVisualizerService} from "./database.visualizer.service"
 
 export class BaseEditableNodeComponent extends BaseNodeComponent {
+
+
+  constructor(protected service:DatabaseVisualizerService) {
+    super()
+  }
+
   editName():void {
-    Dialogs.show({
+    this.service.showDialog({
       id: "dlgName",
       data: this.getNode().data,
       title: "Edit " + this.getNode().data.type + " name",
@@ -18,10 +26,10 @@ export class BaseEditableNodeComponent extends BaseNodeComponent {
   }
 
   remove():void {
-    Dialogs.show({
+    this.service.showDialog({
       id: "dlgConfirm",
       data: {
-        msg: "Delete '" + this.getNode().id
+        msg: "Delete '" + this.getNode().data.name
       },
       onOK: (data:any) => {
         this.removeNode();
