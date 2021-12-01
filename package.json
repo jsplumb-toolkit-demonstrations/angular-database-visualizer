@@ -19,6 +19,7 @@
     "@angular/platform-browser": "^9.1.1",
     "@angular/platform-browser-dynamic": "^9.1.1",
     "@angular/router": "^9.1.1",
+    "@jsplumb/util": "5.0.8",
     "@jsplumbtoolkit/browser-ui-angular": "^5.0.0",
     "@jsplumbtoolkit/browser-ui-angular-drop": "^5.0.0",
     "@jsplumbtoolkit/browser-ui-plugin-miniview": "^5.0.0",
