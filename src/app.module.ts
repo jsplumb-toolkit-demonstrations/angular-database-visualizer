@@ -12,11 +12,10 @@ import {ColumnComponent} from "./column-component";
 import {ControlsComponent} from './controls';
 
 @NgModule({
-    imports:[ BrowserModule, jsPlumbToolkitModule, jsPlumbToolkitDragDropModule],
-    declarations: [ AppComponent, TableNodeComponent, ViewNodeComponent, ColumnComponent, DatabaseVisualizerComponent, ControlsComponent ],
-    bootstrap:    [ AppComponent ],
-    entryComponents: [ TableNodeComponent, ColumnComponent, ViewNodeComponent ],
-    schemas:[ CUSTOM_ELEMENTS_SCHEMA ]
+    imports: [BrowserModule, jsPlumbToolkitModule, jsPlumbToolkitDragDropModule],
+    declarations: [AppComponent, TableNodeComponent, ViewNodeComponent, ColumnComponent, DatabaseVisualizerComponent, ControlsComponent],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
 
