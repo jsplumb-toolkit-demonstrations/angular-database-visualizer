@@ -6,7 +6,7 @@ import {TableNodeComponent} from "./table-node-component"
 import {ViewNodeComponent} from "./view-node-component"
 import {ColumnComponent} from "./column-component"
 import {DatabaseVisualizerService} from "./database.visualizer.service"
-import { SpringLayout } from "@jsplumbtoolkit/layout-spring"
+import { ForceDirectedLayout } from "@jsplumbtoolkit/layout-force-directed"
 
 import { StateMachineConnector } from "@jsplumb/connector-bezier"
 
@@ -145,8 +145,7 @@ export class DatabaseVisualizerComponent {
 
   renderParams = {
     layout: {
-      type: SpringLayout.type,
-      padding: [150, 150]
+      type: ForceDirectedLayout.type
     },
     dragOptions: {
      // filter: "i, .view .buttons, .table .buttons, .table-column *, .view-edit, .edit-name, .delete, .add"
