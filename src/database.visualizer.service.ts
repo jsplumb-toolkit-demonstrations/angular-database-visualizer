@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Dialogs, ShowOptions} from "@jsplumbtoolkit/dialogs"
+import {Dialogs, ShowOptions} from "@jsplumbtoolkit/browser-ui"
 import {BrowserUIAngular, jsPlumbService} from "@jsplumbtoolkit/browser-ui-angular"
 
 @Injectable({

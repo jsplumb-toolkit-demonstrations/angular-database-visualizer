@@ -1,14 +1,26 @@
-import {jsPlumbSurfaceComponent, BrowserUIAngular} from "@jsplumbtoolkit/browser-ui-angular"
-import { Surface, EVENT_DBL_TAP, EVENT_TAP, AnchorLocations, DEFAULT, LabelOverlay } from "@jsplumbtoolkit/browser-ui"
-import { Edge, EVENT_EDGE_ADDED } from "@jsplumbtoolkit/core"
+import {
+  jsPlumbSurfaceComponent,
+  BrowserUIAngular,
+  AngularComponentOverlayType
+} from "@jsplumbtoolkit/browser-ui-angular"
+import {
+  Edge,
+  EVENT_EDGE_ADDED,
+  ForceDirectedLayout,
+  StateMachineConnector,
+  Surface,
+  EVENT_DBL_TAP,
+  EVENT_TAP,
+  AnchorLocations,
+  DEFAULT,
+  LabelOverlay
+} from "@jsplumbtoolkit/browser-ui"
 import {Component, ViewChild} from "@angular/core"
 import {TableNodeComponent} from "./table-node-component"
 import {ViewNodeComponent} from "./view-node-component"
 import {ColumnComponent} from "./column-component"
 import {DatabaseVisualizerService} from "./database.visualizer.service"
-import { ForceDirectedLayout } from "@jsplumbtoolkit/layout-force-directed"
-
-import { StateMachineConnector } from "@jsplumb/connector-bezier"
+import {DeleteConnectionOverlayComponent} from "overlay-component"
 
 const COMMON = "common"
 const ONE_TO_N = "1:N"
@@ -89,15 +101,9 @@ export class DatabaseVisualizerComponent {
         },
         overlays: [
           {
-            type: LabelOverlay.type,
+            type: AngularComponentOverlayType,
             options: {
-              cssClass: "delete-relationship",
-              label: "x",
-              events: {
-                [EVENT_TAP]: (params: any) => {
-                  this.toolkit.removeEdge(params.edge)
-                }
-              }
+              component:DeleteConnectionOverlayComponent
             }
           }
         ]

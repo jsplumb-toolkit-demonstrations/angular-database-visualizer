@@ -1,6 +1,6 @@
 
 import {Component} from "@angular/core"
-import { uuid } from "@jsplumbtoolkit/core"
+import { uuid } from "@jsplumbtoolkit/browser-ui"
 import {BaseEditableNodeComponent} from "./base-editable-node"
 import {DatabaseVisualizerService} from "./database.visualizer.service"
 

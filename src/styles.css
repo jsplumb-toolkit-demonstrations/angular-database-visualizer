@@ -2,7 +2,7 @@
 
 @import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css";
 @import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-demo-support.css";
-@import "../node_modules/@jsplumbtoolkit/dialogs-core/css/jsplumbtoolkit-dialogs.css";
+@import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-dialogs.css";
 
 /* import the styles from the non-angular database visualizer demo*/
 @import "database-visualizer.css";

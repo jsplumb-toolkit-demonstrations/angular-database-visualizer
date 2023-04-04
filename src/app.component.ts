@@ -3,10 +3,15 @@ import {Component, ElementRef, ViewChild} from '@angular/core'
 import {DatabaseVisualizerComponent } from "./database-visualizer"
 
 import {BrowserUIAngular, jsPlumbService} from "@jsplumbtoolkit/browser-ui-angular"
-import {uuid,Vertex, isPort} from "@jsplumbtoolkit/core"
+import {
+  uuid,
+  Vertex,
+  isPort,
+  CancelFunction,
+  CommitFunction
+} from "@jsplumbtoolkit/browser-ui"
 
 import {DatabaseVisualizerService} from "./database.visualizer.service"
-import {CancelFunction, CommitFunction} from "@jsplumbtoolkit/dialogs"
 
 @Component({
     selector: 'app-demo',
